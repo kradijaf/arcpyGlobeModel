@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?><messages><msg code="0" type="2">Start Time: Monday, May 5, 2025 2:08:54 PM</msg><msg code="0" type="50">Failed to convert: C:\VS\8_semestr\matKarto\ukol2\arcpy\referenceProj\project.gdb\boundary. Failed to execute. Parameters are not valid.
+ERROR 002852: Output Feature Class: C:\VS\8_semestr\matKarto\ukol2\arcpy\referenceProj\globeFaces.gdb\boundary exists within geodatabase as C:\VS\8_semestr\matKarto\ukol2\arcpy\referenceProj\globeFaces.gdb\symbology\boundary. A feature class name can only exist once within a geodatabase, including within all feature datasets.
+Failed to execute (CopyFeatures).
+</msg><msg code="0" type="50">Failed to convert: C:\VS\8_semestr\matKarto\ukol2\arcpy\referenceProj\project.gdb\graticule. Failed to execute. Parameters are not valid.
+ERROR 002852: Output Feature Class: C:\VS\8_semestr\matKarto\ukol2\arcpy\referenceProj\globeFaces.gdb\graticule exists within geodatabase as C:\VS\8_semestr\matKarto\ukol2\arcpy\referenceProj\globeFaces.gdb\symbology\graticule. A feature class name can only exist once within a geodatabase, including within all feature datasets.
+Failed to execute (CopyFeatures).
+</msg><msg code="0" type="3">Succeeded at Monday, May 5, 2025 2:08:56 PM (Elapsed Time: 2.00 seconds)</msg></messages>
