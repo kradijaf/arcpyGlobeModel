@@ -201,10 +201,8 @@ def to_arcpy(positioned, face_num, R, K, p, cw_deg, M, ref_lyt_cent):
 
         for j in range(x_arr.shape[0]):
             arr = ac.Array()
-
             for k in range(x_arr.shape[1]):
                 arr.add(ac.Point(x_arr[j, k], y_arr[j, k]))
-
             lines.append(ac.Polyline(arr, sr))
 
         ac.Clip_analysis(lines, clipper, rf'outputProj\globeFaces.gdb\{names[i]}_{face_num}')           # clip graticule to the pentagon boundary
