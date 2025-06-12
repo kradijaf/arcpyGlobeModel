@@ -4,13 +4,14 @@ Solution of exercise 2 of 2024 course of Mathematical Cartography. Creates a dod
 
 ---
 ### Script requirements
-- ArcGIS Pro must be installed, version 3.4.3 was used, corresponds to arcpy version 3.4. (runs on Python 3.10.10)
-  - Used libraries present in arcpy: matplotlib 3.6.3, numpy: 1.24.3, scipy 1.9.3.
-- Libraries included in Python standard library (installed in Python 3.12.2): shutil 1.7.0, os (version unknown).
-<br>
-- Continents data must be in `DataSmall` folder relative to a workspace.
-- `faces` folder for output _.SVG_ globe faces must exist.
-- Input ArcGIS project must be present in `referenceProj`.
+- SW:
+  - ArcGIS Pro must be installed, version 3.4.3 was used, corresponds to arcpy version 3.4. (runs on Python 3.10.10)
+    - Used libraries present in arcpy: matplotlib 3.6.3, numpy: 1.24.3, scipy 1.9.3.
+  - Libraries included in Python standard library (installed in Python 3.12.2): shutil 1.7.0, os (version unknown).
+- Data:
+  - Continents data must be in `DataSmall` folder relative to a workspace.
+  - `faces` folder for output _.SVG_ globe faces must exist.
+  - Input ArcGIS project must be present in `referenceProj`.
 
 ### Inputs
 - Singlepart polygons in WGS-84 used for _.SVG_ faces, 
