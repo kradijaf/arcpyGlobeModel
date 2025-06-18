@@ -20,7 +20,7 @@ Solution of exercise 2 of 2024 course of Mathematical Cartography. Creates a dod
   - An A3 portrait layout including: 
     - Map frames with names corresponding to map names, anchor is set to center point.
     - A transparent basemap citation object. It keeps the citations out of the faces. 
-  - A symbology map with layers controling the look of boundary and graticule layers.
+  - A symbology map with layers controling the look of basemap, boundary and graticule layers.
 
 ### Outputs 
 - `faces` folder containing 12 _SVG_ face plots with graticule and continents. The faces must be rotated manually to asseble a dodecahedral net. 
@@ -28,9 +28,9 @@ Solution of exercise 2 of 2024 course of Mathematical Cartography. Creates a dod
 - Exported layout `outputMap.pdf`.
 
 ### Globe modelling
-Globe scale can be changed using `m` variable on row 7. Radius of a circle incribed to globe face is computed as `Earth radius / M`. Face edge length is based on this value. The script prints globe paramaters related to its size so correctness can be checked (see rows 229-234). 
+Globe scale can be changed using `m` variable on row 7. Radius of a circle incribed to globe face is computed as `Earth radius / M`. Face edge length is based on this value. The script prints globe paramaters related to its size so correctness can be checked (see rows 234-239). 
 
-Face map frame centers in the layout are scaled based on difference of current model face edge length and length of 92,68 mm. This edge length and face center locations are based on M = 100 000 000 (see rows 341-342, 243-245).
+Face map frame centers in the layout are scaled based on difference of current model face edge length and length of 92,68 mm. This edge length and face center locations are based on M = 100 000 000 (see rows 248-250, 346-347).
 
 ### Sources used
 BAYER, T. (2024): Konstrukce glóbů na platónských tělesech, návod na cvičení. Přírodovědecká fakulta
