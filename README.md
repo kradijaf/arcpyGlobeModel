@@ -28,9 +28,9 @@ Solution of exercise 2 of 2024 course of Mathematical Cartography. Creates a dod
 - Exported layout `outputMap.pdf`.
 
 ### Globe modelling
-Globe scale can be changed using `m` variable on row 7. Radius of a circle incribed to globe face is computed as `Earth radius / M`. Face edge length is based on this value. The script prints globe paramaters related to its size so correctness can be checked (see rows 235-240). 
+Globe scale can be changed using `m` variable on row 7. Radius of a circle incribed to globe face is computed as `Earth radius / M`. Face edge length is based on this value. The script prints globe paramaters related to its size so correctness can be checked (see rows 229-234). 
 
-Face map frame centers in the layout are scaled based on difference of current model face edge length and length of 92,68 mm. This edge length and face center locations are based on M = 100 000 000 (see rows 326-327, 245-247).
+Face map frame centers in the layout are scaled based on difference of current model face edge length and length of 92,68 mm. This edge length and face center locations are based on M = 100 000 000 (see rows 341-342, 243-245).
 
 ### Sources used
 ESRI (2022): World Continents, Esri. https://hub.arcgis.com/datasets/esri::world-continents/about (14. 4. 2024).
