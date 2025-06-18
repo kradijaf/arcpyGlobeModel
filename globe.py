@@ -289,13 +289,21 @@ def export_map(p):
     p.save()
     print('Map exported, ArcGIS project saved.')
 # ========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+if not os.path.isdir('faces'):                                  # check for 'faces' folder (for output .SVGs), create it if missing
+    os.mkdir('faces')
+
 try:                                                            # create output ArcGIS Pro project:
     sh.rmtree(r'outputProj')                                    # delete existing output project
-except FileNotFoundError:                                       # skip if non existent
+except FileNotFoundError:                                       # ignore if non existent
     pass
 except BaseException as e:
     raise SystemExit(f'Try exiting the folder or deleting it manually:\n {e}')
-sh.copytree(r'referenceProj', r'outputProj')                    # make a copy of a reference
+
+try:
+    sh.copytree('referenceProj', 'outputProj')                  # make a copy of a reference project if present in CWD
+except FileNotFoundError:
+    raise SystemExit('Input ArcGIS project must be present in /referenceProj.')
+
 p = ac.mp.ArcGISProject(r"outputProj\globeFaces.aprx")          # open reference project copy
 print('Output ArcGIS Project initialized.')
 

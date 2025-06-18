@@ -9,12 +9,11 @@ Solution of exercise 2 of 2024 course of Mathematical Cartography. Creates a dod
     - Used libraries present in arcpy: matplotlib 3.6.3, numpy: 1.24.3, scipy 1.9.3.
   - Libraries included in Python standard library (installed in Python 3.12.2): shutil 1.7.0, os (version unknown).
 - Data:
-  - Continents data must be in `DataSmall` folder relative to a workspace.
-  - `faces` folder for output _.SVG_ globe faces must exist.
+  - Continents data must be in `DataSmall` folder relative to workspace.
   - Input ArcGIS project must be present in `referenceProj`.
 
 ### Inputs
-- Singlepart polygons in WGS-84 used for _.SVG_ faces, 
+- Singlepart polygons (`DataSmall`) in WGS-84 used for _.SVG_ faces, 
 - `referenceProj` contents: 
   - A map `face<1-12>` for each face. These maps don´t have the requested projection. They are only projected in North / South Pole Gnomonic projection.
   - An A3 portrait layout including: 
@@ -23,6 +22,7 @@ Solution of exercise 2 of 2024 course of Mathematical Cartography. Creates a dod
   - A symbology map with layers controling the look of boundary and graticule layers.
 
 ### Outputs 
+- `faces` folder containing 12 _SVG_ face plots with graticule and continents. The faces must be rotated manually to asseble a dodecahedral net. 
 - ArcGIS project `outputProj` including face maps and dodecahedral net layout.
 - Exported layout `outputMap.pdf`.
 
