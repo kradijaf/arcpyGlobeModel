@@ -4,7 +4,7 @@ from scipy.constants import golden_ratio as gold
 
 ac.env.overwriteOutput = True
     # Globe parameters:
-m = 300000000                                # scale of inscribed circle of output model 
+m = 300000000                               # scale of inscribed circle of output model 
 Du = Dv = np.radians(10)                    # paralel and meridian intervals (10°)  
 du = dv = np.radians(1)                     # graticule sampling resolution (1°)
 radius = 6378137                            # reference sphere radius
@@ -219,6 +219,11 @@ def to_arcpy(positioned, face_num, R, K, p, cw_deg, M, ref_lyt_cent):
         #set proper layer order, clip map with face boundary:
     bound = m.listLayers('boundary*')[0]                                                                # face boundary layer                                                                 
     m.moveLayer(m.listLayers()[0], bound)                                                               # make it top layer
+
+    basemaps = [lyr for lyr in sym_m.listLayers() if lyr.isBasemapLayer]                                # apply symbology map´s basemap(s) to current face map
+    for b in basemaps:                                                                                  # supports shaded relief in the basemap
+        m.addBasemap(b.name)
+
     print('Data imported and visualized.')
     m.clipLayers(bound)                                                                                 # clip map to face boundary
 
@@ -256,7 +261,7 @@ def fit_to_layout(p):
     mfs[3].setAnchor('BOTTOM_MID_POINT'); mfs[4].setAnchor('BOTTOM_MID_POINT'); mfs[6].setAnchor('TOP_MID_POINT'); mfs[7].setAnchor('TOP_MID_POINT')            
     x_min = mfs[4].elementPositionX; y_min = mfs[7].elementPositionY; x_max = mfs[6].elementPositionX; y_max = mfs[3].elementPositionY          # get face vertices min/max coordinates
 
-    if x_min != 10 or y_min != 10:  	                                                    # are face vertices min X, Y both 10 mm?
+    if (x_min != 10) or (y_min != 10):  	                                                # are face vertices min X, Y both 10 mm?
         x_delta, y_delta = 10 - x_min, 10 - y_min
         for i in range(len(mfs)):                                              
             mf = mfs[i]
@@ -273,7 +278,7 @@ def fit_to_layout(p):
     width, height = 0, 0
 
     for dim in iso_portraits.values():                                                  # find smallest ISO portrait format to fit into with 10 mm distance
-        if x_max <= (dim[0] - 10) and y_max <= (dim[1] - 10):
+        if (x_max <= (dim[0] - 10)) and (y_max <= (dim[1] - 10)):
             width, height = dim[0], dim[1]                                              # ISO portrait found
             break
     if width == 0:                                                                      # ISO portrait not found
@@ -285,7 +290,7 @@ def fit_to_layout(p):
 def export_map(p):
     '''export the map layout'''
     print('Exporting layout, may take long for high scale models.') 
-    p.listLayouts()[0].exportToPDF(join_cwd_with('outputMap.pdf'), 600, image_compression = 'JPEG2000', image_quality = 'NORMAL', embed_fonts = False) 
+    p.listLayouts()[0].exportToPDF(join_cwd_with('outputMap.pdf'), 600, image_compression = 'JPEG2000', image_quality = 'NORMAL', embed_fonts = False, jpeg_compression_quality = 100) 
     p.save()
     print('Map exported, ArcGIS project saved.')
 

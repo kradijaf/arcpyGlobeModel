@@ -33,10 +33,12 @@ Globe scale can be changed using `m` variable on row 7. Radius of a circle incri
 Face map frame centers in the layout are scaled based on difference of current model face edge length and length of 92,68 mm. This edge length and face center locations are based on M = 100 000 000 (see rows 341-342, 243-245).
 
 ### Sources used
-ESRI (2022): World Continents, Esri. https://hub.arcgis.com/datasets/esri::world-continents/about (14. 4. 2024).
-
 BAYER, T. (2024): Konstrukce glóbů na platónských tělesech, návod na cvičení. Přírodovědecká fakulta
 Univerzity Karlovy (14. 4. 2024).
+
+ESRI (2022): World Continents, Esri. https://hub.arcgis.com/datasets/esri::world-continents/about (14. 4. 2024).
+
+ESRI (2025): OpenStreetMap Vector Basemap. https://www.arcgis.com/home/item.html?id=d6b18a2e774c4959ba855f6ac90952a2 (19. 6. 2025).
 
 ESRI, TOMTOM, GARMIN, FAO, NOAA, USGS, OPENSTREETMAP CONTRIBUTORS, GIS USER COMMUNITY (2025): World Topographic map. https://esri.maps.arcgis.com/home/item.html?id=67372ff42cd145319639a99152b15bc3 (1. 6. 2025).
 
