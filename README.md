@@ -5,11 +5,12 @@ Solution of exercise 2 of 2024 course of Mathematical Cartography. Creates a dod
 ---
 ### Script requirements
 - SW:
-  - ArcGIS Pro must be installed, version 3.4.3 was used, corresponds to arcpy version 3.4. (runs on Python 3.10.10)
+  - ArcGIS Pro must be installed, version 3.4.3 was used, corresponds to arcpy version 3.4. (runs on Python 3.10.10). Also compatible with ArcGIS Pro 3.5.1.
     - Used libraries present in arcpy: matplotlib 3.6.3, numpy: 1.24.3, scipy 1.9.3.
   - Libraries included in Python standard library (installed in Python 3.12.2): shutil 1.7.0, os (version unknown).
 - Data:
-  - Continents data must be in `DataSmall` folder relative to workspace.
+  - All paths referenced below are relative to CWD the script was launched from (since 'paths relative to CWD' commit).
+  - Continents data must be in `DataSmall`.
   - Input ArcGIS project must be present in `referenceProj`.
 
 ### Inputs

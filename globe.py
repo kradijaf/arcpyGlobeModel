@@ -94,7 +94,7 @@ def gnom(R, sr, dr):
 
 def load(filename):
     '''load polygon data into np.array [rad]'''
-    with open(filename, encoding = 'utf-8') as f:
+    with open(join_cwd_with(filename), encoding = 'utf-8') as f:
         polygons = np.array([line_to_pnt(f.readline())])
         l = f.readline()
 
@@ -157,7 +157,7 @@ def rotate_export_plot(Xm, Ym, Xp, Yp, XC, YC, XB, YB, cw_deg, face_num):
     ax = plt.gca()
     ax.set_aspect('equal', adjustable = 'box')              # set equal axis scale
 
-    plt.savefig(fr'faces\face{face_num}.svg')               # export face to .SVG
+    plt.savefig(join_cwd_with(fr'faces\face{face_num}.svg'))            # export face to .SVG
     plt.clf()                                               # reset plot figure
     print('Face exported to .SVG.')
     return Xm, Ym, Xp, Yp, XC, YC, XB, YB
@@ -174,10 +174,10 @@ def to_arcpy(positioned, face_num, R, K, p, cw_deg, M, ref_lyt_cent):
     '''import data into ArcGIS Pro geodatabase and face´s predefined map'''       
         # create face´s spatial reference:
     K = np.degrees(K)
-    if face_num in (1, 2, 3, 4, 5, 11):                                                                # gnomonic polar north in oblique aspect, parametrized radius and cartographic pole
+    if face_num in (1, 2, 3, 4, 5, 11):                                                                 # gnomonic polar north in oblique aspect, parametrized radius and cartographic pole
         sr = ac.SpatialReference(text = fr'PROJCS["face{face_num}_N", GEOGCS["GCS_WGS_1984", DATUM["D_WGS_1984", SPHEROID["WGS_1984",{R},298.257223563]], PRIMEM["Greenwich",0.0], UNIT["Degree",0.0174532925199433]],\
             PROJECTION["Gnomonic"], PARAMETER["False_Easting",0.0], PARAMETER["False_Northing",0.0], PARAMETER["Longitude_Of_Center",{K[1]}], PARAMETER["Latitude_Of_Center",{K[0]}], UNIT["Meter",1.0]]')        
-    else:                                                                                            # gnomonic polar south in oblique aspect     
+    else:                                                                                               # gnomonic polar south in oblique aspect     
         sr = ac.SpatialReference(text = fr'PROJCS["face{face_num}_S", GEOGCS["GCS_WGS_1984", DATUM["D_WGS_1984", SPHEROID["WGS_1984",{R},298.257223563]], PRIMEM["Greenwich",0.0], UNIT["Degree",0.0174532925199433]],\
             PROJECTION["Gnomonic"], PARAMETER["False_Easting",0.0], PARAMETER["False_Northing",0.0], PARAMETER["Longitude_Of_Center",{K[1]}],PARAMETER["Latitude_Of_Center",{K[0]}], UNIT["Meter",1.0]]')        
         
@@ -212,7 +212,7 @@ def to_arcpy(positioned, face_num, R, K, p, cw_deg, M, ref_lyt_cent):
         # apply symbology to the face:
     for i in range(3):                                                                                  
         layer_n = f'{names[i]}_{face_num}'                                                              # layer name
-        layer_loc = os.path.join(os.getcwd(), rf'outputProj\globeFaces.gdb\{layer_n}')                  # layer location
+        layer_loc = join_cwd_with(rf'outputProj\globeFaces.gdb\{layer_n}')                              # layer location
         m.addDataFromPath(layer_loc)                                                                    # add graticule and boundary to current face                       
         sym_m = p.listMaps('symbology')[0]                                                              # find symbology map
         ac.management.ApplySymbologyFromLayer(m.listLayers(layer_n)[0], sym_m.listLayers(sym_names[i])[0])          # apply the symbology
@@ -285,26 +285,35 @@ def fit_to_layout(p):
 def export_map(p):
     '''export the map layout'''
     print('Exporting layout, may take long for high scale models.') 
-    p.listLayouts()[0].exportToPDF('outputMap.pdf', 600, image_compression = 'JPEG2000', image_quality = 'NORMAL', embed_fonts = False) 
+    p.listLayouts()[0].exportToPDF(join_cwd_with('outputMap.pdf'), 600, image_compression = 'JPEG2000', image_quality = 'NORMAL', embed_fonts = False) 
     p.save()
     print('Map exported, ArcGIS project saved.')
-# ========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
-if not os.path.isdir('faces'):                                  # check for 'faces' folder (for output .SVGs), create it if missing
-    os.mkdir('faces')
 
+def join_cwd_with(leaf: str):
+    '''Create full path of leaf.
+
+    :param leaf: End path joined to CWD.'''
+    return os.path.join(os.getcwd(), leaf)
+# ========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+faces_path = join_cwd_with('faces')
+if not os.path.isdir(faces_path):                               # check for 'faces' folder (for output .SVGs), create it if missing
+    os.mkdir(faces_path)
+
+output_proj_path = join_cwd_with('outputProj')
 try:                                                            # create output ArcGIS Pro project:
-    sh.rmtree(r'outputProj')                                    # delete existing output project
+    sh.rmtree(output_proj_path)                                 # delete existing output project
 except FileNotFoundError:                                       # ignore if non existent
     pass
 except BaseException as e:
-    raise SystemExit(f'Try exiting the folder or deleting it manually:\n {e}')
+    raise SystemExit(f'outputProj folder created by previous run of globe.py used by other process. Can´t be deleted in that state, globe.py couldn´t continue. \
+Try exiting the folder or deleting it manually:\n {e}')
 
 try:
-    sh.copytree('referenceProj', 'outputProj')                  # make a copy of a reference project if present in CWD
+    sh.copytree(join_cwd_with('referenceProj'), output_proj_path)               # make a copy of a reference project if present in CWD
 except FileNotFoundError:
-    raise SystemExit('Input ArcGIS project must be present in /referenceProj.')
+    raise SystemExit('Input ArcGIS project must be present in CWD/referenceProj.')
 
-p = ac.mp.ArcGISProject(r"outputProj\globeFaces.aprx")          # open reference project copy
+p = ac.mp.ArcGISProject(join_cwd_with(r"outputProj\globeFaces.aprx"))           # open reference project copy
 print('Output ArcGIS Project initialized.')
 
     # Coordinates of face vertices [latitude; longitude]: 
